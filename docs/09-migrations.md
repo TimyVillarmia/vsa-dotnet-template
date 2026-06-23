@@ -3,7 +3,7 @@
 Migrations live in Infrastructure:
 
 ```txt
-Project.Infrastructure/
+VsaTemplate.Infrastructure/
 └── Persistence/
     └── Migrations/
 ```
@@ -12,8 +12,8 @@ Project.Infrastructure/
 
 ```bash
 dotnet ef migrations add InitialCreate \
-  --project src/Project.Infrastructure/Project.Infrastructure.csproj \
-  --startup-project src/Project.API/Project.API.csproj \
+  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
+  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj \
   --output-dir Persistence/Migrations
 ```
 
@@ -21,16 +21,16 @@ dotnet ef migrations add InitialCreate \
 
 ```bash
 dotnet ef database update \
-  --project src/Project.Infrastructure/Project.Infrastructure.csproj \
-  --startup-project src/Project.API/Project.API.csproj
+  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
+  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
 ## Remove Last Migration
 
 ```bash
 dotnet ef migrations remove \
-  --project src/Project.Infrastructure/Project.Infrastructure.csproj \
-  --startup-project src/Project.API/Project.API.csproj
+  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
+  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
 ## Why Use --project and --startup-project?
@@ -46,8 +46,8 @@ The project used to run the app and load configuration.
 In this template:
 
 ```txt
---project         = Project.Infrastructure
---startup-project = Project.API
+--project         = VsaTemplate.Infrastructure
+--startup-project = VsaTemplate.API
 ```
 
 ## Migration History
@@ -61,11 +61,11 @@ __EFMigrationsHistory
 Check tables:
 
 ```bash
-docker exec -it project-postgres psql -U postgres -d project_db -c "\dt"
+docker exec -it vsatemplate-postgres psql -U postgres -d vsatemplate_db -c "\dt"
 ```
 
 Check migrations:
 
 ```bash
-docker exec -it project-postgres psql -U postgres -d project_db -c 'SELECT * FROM "__EFMigrationsHistory";'
+docker exec -it vsatemplate-postgres psql -U postgres -d vsatemplate_db -c 'SELECT * FROM "__EFMigrationsHistory";'
 ```

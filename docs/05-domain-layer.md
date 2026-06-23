@@ -5,7 +5,7 @@ The Domain layer contains business concepts and business rules.
 It lives in:
 
 ```txt
-Project.Domain
+VsaTemplate.Domain
 ```
 
 ## Responsibilities
@@ -21,7 +21,7 @@ Domain contains:
 ## Example Structure
 
 ```txt
-Project.Domain/
+VsaTemplate.Domain/
 ├── Common/
 │   └── Entity.cs
 └── Todos/

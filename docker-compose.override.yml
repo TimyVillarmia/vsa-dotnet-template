@@ -2,8 +2,8 @@ services:
   api:
     build:
       context: .
-      dockerfile: src/Project.API/Dockerfile
-    container_name: project-api
+      dockerfile: src/VsaTemplate.API/Dockerfile
+    container_name: vsatemplate-api
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ASPNETCORE_HTTP_PORTS: 8080

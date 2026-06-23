@@ -5,7 +5,7 @@ The Application layer contains use cases.
 It lives in:
 
 ```txt
-Project.Application
+VsaTemplate.Application
 ```
 
 ## Responsibilities
@@ -26,7 +26,7 @@ Application contains:
 Example:
 
 ```txt
-Project.Application/
+VsaTemplate.Application/
 └── Features/
     └── Todos/
         ├── CreateTodo/

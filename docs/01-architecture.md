@@ -6,33 +6,33 @@ The template uses Vertical Slice Architecture with lightweight Clean Architectur
 
 ```txt
 src/
-├── Project.API
-├── Project.Application
-├── Project.Domain
-├── Project.Infrastructure
-└── Project.slnx
+├── VsaTemplate.API
+├── VsaTemplate.Application
+├── VsaTemplate.Domain
+├── VsaTemplate.Infrastructure
+└── VsaTemplate.slnx
 
 tests/
-├── Project.UnitTests
-├── Project.IntegrationTests
-└── Project.ArchitectureTests
+├── VsaTemplate.UnitTests
+├── VsaTemplate.IntegrationTests
+└── VsaTemplate.ArchitectureTests
 ```
 
 ## Dependency Direction
 
 ```txt
-Project.API
-├── Project.Application
-└── Project.Infrastructure
+VsaTemplate.API
+├── VsaTemplate.Application
+└── VsaTemplate.Infrastructure
 
-Project.Application
-└── Project.Domain
+VsaTemplate.Application
+└── VsaTemplate.Domain
 
-Project.Infrastructure
-├── Project.Application
-└── Project.Domain
+VsaTemplate.Infrastructure
+├── VsaTemplate.Application
+└── VsaTemplate.Domain
 
-Project.Domain
+VsaTemplate.Domain
 └── nothing
 ```
 

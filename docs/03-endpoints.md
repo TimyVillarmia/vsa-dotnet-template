@@ -3,13 +3,13 @@
 Endpoints live in:
 
 ```txt
-Project.API/Endpoints
+VsaTemplate.API/Endpoints
 ```
 
 Example:
 
 ```txt
-Project.API/
+VsaTemplate.API/
 └── Endpoints/
     ├── IEndpoint.cs
     ├── EndpointExtensions.cs
@@ -33,7 +33,7 @@ Endpoints should not contain business logic.
 ## IEndpoint
 
 ```csharp
-namespace Project.API.Endpoints;
+namespace VsaTemplate.API.Endpoints;
 
 public interface IEndpoint
 {
@@ -80,7 +80,7 @@ This template uses automatic endpoint registration.
 ```csharp
 using System.Reflection;
 
-namespace Project.API.Endpoints;
+namespace VsaTemplate.API.Endpoints;
 
 public static class EndpointExtensions
 {

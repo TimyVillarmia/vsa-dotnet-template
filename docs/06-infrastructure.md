@@ -5,7 +5,7 @@ Infrastructure contains implementation details.
 It lives in:
 
 ```txt
-Project.Infrastructure
+VsaTemplate.Infrastructure
 ```
 
 ## Responsibilities
@@ -22,7 +22,7 @@ Infrastructure contains:
 ## Structure
 
 ```txt
-Project.Infrastructure/
+VsaTemplate.Infrastructure/
 ├── DependencyInjection.cs
 ├── Persistence/
 │   ├── ApplicationDbContext.cs

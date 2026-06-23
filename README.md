@@ -37,22 +37,22 @@ docker compose up -d postgres seq
 Restore and build:
 
 ```bash
-dotnet restore src/Project.slnx
-dotnet build src/Project.slnx
+dotnet restore src/VsaTemplate.slnx
+dotnet build src/VsaTemplate.slnx
 ```
 
 Apply database migrations:
 
 ```bash
 dotnet ef database update \
-  --project src/Project.Infrastructure/Project.Infrastructure.csproj \
-  --startup-project src/Project.API/Project.API.csproj
+  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
+  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
 Run API:
 
 ```bash
-dotnet run --project src/Project.API/Project.API.csproj
+dotnet run --project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
 API URL:
@@ -77,7 +77,7 @@ GET /health/ready
 Run tests:
 
 ```bash
-dotnet test src/Project.slnx
+dotnet test src/VsaTemplate.slnx
 ```
 
 ## Documentation

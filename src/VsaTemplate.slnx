@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="../tests/VsaTemplate.ArchitectureTests/VsaTemplate.ArchitectureTests.csproj" />
+  <Project Path="../tests/VsaTemplate.IntegrationTests/VsaTemplate.IntegrationTests.csproj" />
+  <Project Path="../tests/VsaTemplate.UnitTests/VsaTemplate.UnitTests.csproj" />
+  <Project Path="VsaTemplate.API/VsaTemplate.API.csproj" />
+  <Project Path="VsaTemplate.Application/VsaTemplate.Application.csproj" />
+  <Project Path="VsaTemplate.Domain/VsaTemplate.Domain.csproj" />
+  <Project Path="VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj" />
+</Solution>

@@ -11,7 +11,7 @@ Budgets
 ## 1. Add Domain Entity
 
 ```txt
-Project.Domain/
+VsaTemplate.Domain/
 └── Budgets/
     ├── Budget.cs
     └── BudgetErrors.cs
@@ -20,7 +20,7 @@ Project.Domain/
 ## 2. Add Application Feature
 
 ```txt
-Project.Application/
+VsaTemplate.Application/
 └── Features/
     └── Budgets/
         └── CreateBudget/
@@ -33,7 +33,7 @@ Project.Application/
 ## 3. Add Infrastructure Configuration
 
 ```txt
-Project.Infrastructure/
+VsaTemplate.Infrastructure/
 └── Persistence/
     └── Configurations/
         └── BudgetConfiguration.cs
@@ -54,7 +54,7 @@ public DbSet<Budget> Budgets => Set<Budget>();
 ## 6. Add Endpoint
 
 ```txt
-Project.API/
+VsaTemplate.API/
 └── Endpoints/
     └── Budgets/
         ├── BudgetEndpoints.cs
@@ -97,8 +97,8 @@ Because endpoint registration is automatic, you do not need to edit `Program.cs`
 
 ```bash
 dotnet ef migrations add AddBudgets \
-  --project src/Project.Infrastructure/Project.Infrastructure.csproj \
-  --startup-project src/Project.API/Project.API.csproj \
+  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
+  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj \
   --output-dir Persistence/Migrations
 ```
 
@@ -106,8 +106,8 @@ dotnet ef migrations add AddBudgets \
 
 ```bash
 dotnet ef database update \
-  --project src/Project.Infrastructure/Project.Infrastructure.csproj \
-  --startup-project src/Project.API/Project.API.csproj
+  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
+  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
 ## Feature Checklist

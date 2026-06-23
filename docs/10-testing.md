@@ -4,9 +4,9 @@ This template has three test projects:
 
 ```txt
 tests/
-├── Project.UnitTests
-├── Project.IntegrationTests
-└── Project.ArchitectureTests
+├── VsaTemplate.UnitTests
+├── VsaTemplate.IntegrationTests
+└── VsaTemplate.ArchitectureTests
 ```
 
 ## Unit Tests
@@ -16,7 +16,7 @@ Unit tests test small pieces of logic.
 Example:
 
 ```txt
-Project.UnitTests/Domain/Todos/TodoTests.cs
+VsaTemplate.UnitTests/Domain/Todos/TodoTests.cs
 ```
 
 Unit tests should not require:
@@ -76,7 +76,7 @@ Infrastructure must not depend on API
 Example mistake:
 
 ```csharp
-using Project.Infrastructure.Persistence;
+using VsaTemplate.Infrastructure.Persistence;
 ```
 
 inside Application should fail architecture tests.
@@ -84,5 +84,5 @@ inside Application should fail architecture tests.
 ## Run All Tests
 
 ```bash
-dotnet test src/Project.slnx
+dotnet test src/VsaTemplate.slnx
 ```

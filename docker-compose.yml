@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:18-alpine
-    container_name: project-postgres
+    container_name: vsatemplate-postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -9,11 +9,11 @@ services:
     ports:
       - "${POSTGRES_PORT}:5432"
     volumes:
-      - project_postgres_data:/var/lib/postgresql
+      - vsatemplate_postgres_data:/var/lib/postgresql
 
   seq:
     image: datalust/seq:latest
-    container_name: project-seq
+    container_name: vsatemplate-seq
     environment:
       ACCEPT_EULA: "Y"
       SEQ_PASSWORD: ${SEQ_PASSWORD}
@@ -23,5 +23,5 @@ services:
       - seq_data:/data
 
 volumes:
-  project_postgres_data:
+  vsatemplate_postgres_data:
   seq_data:  

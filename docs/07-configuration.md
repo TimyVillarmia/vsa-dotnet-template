@@ -20,7 +20,7 @@ It contains sample values.
 Example:
 
 ```env
-POSTGRES_DB=project_db
+POSTGRES_DB=vsatemplate_db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_PORT=5432
@@ -31,7 +31,7 @@ SEQ_PASSWORD=admin123
 API_PORT=8080
 ASPNETCORE_ENVIRONMENT=Development
 
-ConnectionStrings__Database=Host=postgres;Port=5432;Database=project_db;Username=postgres;Password=postgres
+ConnectionStrings__Database=Host=postgres;Port=5432;Database=vsatemplate_db;Username=postgres;Password=postgres
 Serilog__WriteTo__1__Args__serverUrl=http://seq:80
 ```
 
@@ -56,7 +56,7 @@ For local `dotnet run`, use:
 ```json
 {
   "ConnectionStrings": {
-    "Database": "Host=localhost;Port=5432;Database=project_db;Username=postgres;Password=postgres"
+    "Database": "Host=localhost;Port=5432;Database=vsatemplate_db;Username=postgres;Password=postgres"
   }
 }
 ```
@@ -68,7 +68,7 @@ ASP.NET Core supports double underscore for nested configuration.
 This:
 
 ```env
-ConnectionStrings__Database=Host=postgres;Port=5432;Database=project_db;Username=postgres;Password=postgres
+ConnectionStrings__Database=Host=postgres;Port=5432;Database=vsatemplate_db;Username=postgres;Password=postgres
 ```
 
 maps to:
@@ -76,7 +76,7 @@ maps to:
 ```json
 {
   "ConnectionStrings": {
-    "Database": "Host=postgres;Port=5432;Database=project_db;Username=postgres;Password=postgres"
+    "Database": "Host=postgres;Port=5432;Database=vsatemplate_db;Username=postgres;Password=postgres"
   }
 }
 ```
@@ -87,7 +87,7 @@ Use this when running API with `dotnet run`.
 
 ```bash
 docker compose up -d postgres seq
-dotnet run --project src/Project.API/Project.API.csproj
+dotnet run --project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
 Connection string:
