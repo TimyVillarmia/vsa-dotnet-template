@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/Project.API/Dockerfile
+    container_name: project-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ASPNETCORE_HTTP_PORTS: 8080
+      ConnectionStrings__Database: ${ConnectionStrings__Database}
+      Serilog__WriteTo__1__Args__serverUrl: ${Serilog__WriteTo__1__Args__serverUrl}
+    ports:
+      - "${API_PORT}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      seq:
+        condition: service_started
