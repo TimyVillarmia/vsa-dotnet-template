@@ -1,80 +1,23 @@
 # AGENTS.md
 
-## Project overview
+This file mirrors the repository-level agent guidance for clients that inspect nested agent instructions. Prefer the root `AGENTS.md` when both are available.
 
-This repository is a reusable `.NET 10` project template for building Minimal API applications with Vertical Slice Architecture and lightweight Clean Architecture boundaries.
+## Project Overview
 
-It is installed and used with:
+This repository is a reusable `.NET 10` Minimal API template that uses Vertical Slice Architecture with lightweight Clean Architecture boundaries.
+
+Install and use it with:
 
 ```bash
 dotnet new install .
 dotnet new vsa-api -n MyApp
 ```
 
-The template placeholder name is:
+The template placeholder is `VsaTemplate`.
 
-```txt
-VsaTemplate
-```
+## Architecture Rules
 
-The generated application name replaces `VsaTemplate`.
-
-## Stack
-
-* .NET 10
-* ASP.NET Core Minimal APIs
-* CQRS
-* MediatR
-* FluentValidation
-* ErrorOr
-* EF Core
-* PostgreSQL
-* Docker Compose
-* Serilog
-* Seq
-* Scalar
-* xUnit
-* Testcontainers
-* NetArchTest
-* Central Package Management
-* `dotnet new` template configuration
-
-## Repository layout
-
-```txt
-src/
-├── VsaTemplate.API
-├── VsaTemplate.Application
-├── VsaTemplate.Domain
-├── VsaTemplate.Infrastructure
-└── VsaTemplate.slnx
-
-tests/
-├── VsaTemplate.UnitTests
-├── VsaTemplate.IntegrationTests
-└── VsaTemplate.ArchitectureTests
-
-docs/
-├── 00-overview.md
-├── 01-architecture.md
-├── 02-request-flow.md
-├── 03-endpoints.md
-├── 04-application-layer.md
-├── 05-domain-layer.md
-├── 06-infrastructure.md
-├── 07-configuration.md
-├── 08-health-logging.md
-├── 09-migrations.md
-├── 10-testing.md
-└── 11-add-feature.md
-
-.template.config/
-└── template.json
-```
-
-## Architecture rules
-
-Dependency direction:
+Dependency direction must stay:
 
 ```txt
 VsaTemplate.API
@@ -92,19 +35,16 @@ VsaTemplate.Domain
 └── nothing
 ```
 
-Rules:
+- Domain must not depend on Application, Infrastructure, API, EF Core, ASP.NET Core, or MediatR.
+- Application may depend on Domain only.
+- Infrastructure may depend on Application and Domain, but not API.
+- API is the composition root.
+- Keep endpoints thin and put use-case logic in Application handlers.
+- Keep business rules in Domain.
+- Keep EF Core configuration, migrations, and external service implementations in Infrastructure.
+- Do not add generic repositories by default.
 
-* Domain must not depend on Application, Infrastructure, API, EF Core, ASP.NET Core, or MediatR.
-* Application must not depend on Infrastructure or API.
-* Infrastructure must not depend on API.
-* API is the composition root.
-* Keep endpoints thin.
-* Keep use-case logic in Application handlers.
-* Keep business rules in Domain.
-* Keep EF Core and external service implementations in Infrastructure.
-* Do not add generic repositories by default.
-
-## Build and test commands
+## Commands
 
 Restore:
 
@@ -137,357 +77,60 @@ cp .env.example .env
 docker compose up -d postgres seq
 ```
 
-Health checks:
+## Template Rules
 
-```bash
-curl http://localhost:5014/health/live
-curl http://localhost:5014/health/ready
-```
+Template configuration lives in `.template.config/template.json`.
 
-## EF Core commands
+- `sourceName` must remain `VsaTemplate`.
+- Template parameter symbols must include `"replaces"` when they substitute tokens.
+- Current replaceable parameters: `databaseName`, `postgresUser`, `postgresPassword`, `postgresPort`, `seqPort`, `seqPassword`, `apiPort`, `localApiPort`, `localHttpsPort`.
+- Do not use shell scripts to rename the template; rely on `.template.config/template.json`.
+- Do not globally replace the word `Project`; it breaks MSBuild XML and `launchSettings.json`.
+- In `launchSettings.json`, `"commandName": "Project"` is correct.
+- Do not use local Docker Compose ports in integration tests; use Testcontainers connection strings.
 
-Add migration:
+Validate template changes by installing the template, generating a project outside this repository, then restoring, building, and testing the generated project.
 
-```bash
-dotnet ef migrations add MigrationName \
-  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
-  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj \
-  --output-dir Persistence/Migrations
-```
+## Endpoints
 
-Apply migrations:
+Endpoints live under `src/VsaTemplate.API/Endpoints`.
 
-```bash
-dotnet ef database update \
-  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
-  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
-```
+Every endpoint group implements `IEndpoint`. `EndpointExtensions.AddEndpoints()` scans the API assembly and registers endpoint groups. `app.MapEndpoints()` maps them at startup.
 
-Remove last migration:
+Do not manually add every endpoint group in `Program.cs`.
 
-```bash
-dotnet ef migrations remove \
-  --project src/VsaTemplate.Infrastructure/VsaTemplate.Infrastructure.csproj \
-  --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
-```
-
-## Template commands
-
-Install template locally:
-
-```bash
-dotnet new install .
-```
-
-Uninstall template locally:
-
-```bash
-dotnet new uninstall .
-```
-
-Create sample project:
-
-```bash
-dotnet new vsa-api -n MyApp
-```
-
-Create sample project with custom parameters:
-
-```bash
-dotnet new vsa-api -n MyApp \
-  --databaseName myapp_db \
-  --postgresUser postgres \
-  --postgresPassword postgres \
-  --postgresPort 5433 \
-  --seqPort 5342 \
-  --apiPort 8081 \
-  --localApiPort 5015 \
-  --localHttpsPort 7049
-```
-
-Validate generated project:
-
-```bash
-cd MyApp
-
-dotnet restore src/MyApp.slnx
-dotnet build src/MyApp.slnx
-dotnet test src/MyApp.slnx
-```
-
-Check for unreplaced template tokens:
-
-```bash
-grep -R "VsaTemplate\|databaseName\|postgresUser\|postgresPassword\|postgresPort\|seqPort\|seqPassword\|apiPort\|localApiPort\|localHttpsPort" -n . \
-  --exclude-dir=.git \
-  --exclude-dir=bin \
-  --exclude-dir=obj
-```
-
-## Template configuration rules
-
-The template configuration lives in:
+Current sample routes:
 
 ```txt
-.template.config/template.json
+POST /api/todos
+GET  /api/todos/{id:guid}
 ```
 
-Required behavior:
+`UpdateTodoRequest.cs` exists as a request model, but no update route is currently mapped.
 
-* `sourceName` must remain `VsaTemplate`.
-* Template parameter symbols must include `"replaces"`.
-* Do not use shell scripts to rename the template.
-* Do not globally replace the word `Project`.
+## Testing
 
-Important gotchas:
+- Domain behavior changes need unit tests.
+- HTTP behavior changes need integration tests.
+- Project reference or layer-boundary changes need architecture tests.
+- Integration tests use Testcontainers PostgreSQL and must override `ApplicationDbContext` with `_postgres.GetConnectionString()`.
+- Run `dotnet test src/VsaTemplate.slnx` before finishing code changes when feasible.
 
-* Do not replace XML `<Project>` tags.
-* Do not replace `"commandName": "Project"` inside `launchSettings.json`.
-* Do not rely on local Docker Compose ports in integration tests.
-* Integration tests must use Testcontainers connection strings.
+## Docs
 
-## Code style
-
-Use modern C# style:
-
-* Nullable enabled.
-* Implicit usings enabled.
-* File-scoped namespaces.
-* Prefer `sealed` classes when inheritance is not intended.
-* Prefer records for request/response/command/query models.
-* Use async APIs for database and HTTP operations.
-* Pass `CancellationToken` through handlers and endpoints.
-* Keep one use case per feature folder.
-* Keep validators beside the command/query they validate.
-* Keep endpoint request models in API, not Application.
-
-## Endpoint conventions
-
-Endpoints live in:
+Read the relevant docs before broad changes:
 
 ```txt
-src/VsaTemplate.API/Endpoints
+docs/00-overview.md
+docs/01-architecture.md
+docs/02-request-flow.md
+docs/03-endpoints.md
+docs/04-application-layer.md
+docs/05-domain-layer.md
+docs/06-infrastructure.md
+docs/07-configuration.md
+docs/08-health-logging.md
+docs/09-migrations.md
+docs/10-testing.md
+docs/11-add-feature.md
 ```
-
-Endpoint groups implement:
-
-```csharp
-public interface IEndpoint
-{
-    void MapEndpoint(IEndpointRouteBuilder app);
-}
-```
-
-Use route groups:
-
-```csharp
-var group = app
-    .MapGroup("/api/todos")
-    .WithTags("Todos");
-```
-
-Endpoints should:
-
-1. Receive request data.
-2. Create command/query.
-3. Send through `ISender`.
-4. Map `ErrorOr` result to HTTP response.
-
-Endpoints should not:
-
-* access `ApplicationDbContext` directly
-* contain business rules
-* perform complex mapping logic
-* know infrastructure details
-
-## Application conventions
-
-Application features live in:
-
-```txt
-src/VsaTemplate.Application/Features
-```
-
-Use this structure:
-
-```txt
-Features/Todos/CreateTodo/
-├── CreateTodoCommand.cs
-├── CreateTodoHandler.cs
-├── CreateTodoValidator.cs
-└── CreateTodoResponse.cs
-```
-
-Command means write/change state.
-
-Query means read state.
-
-Handlers may use `IApplicationDbContext`.
-
-Handlers must not reference Infrastructure classes directly.
-
-## Domain conventions
-
-Domain code lives in:
-
-```txt
-src/VsaTemplate.Domain
-```
-
-Domain should contain:
-
-* entities
-* value objects
-* domain errors
-* business methods
-* invariants
-
-Domain should not contain:
-
-* EF Core attributes
-* ASP.NET Core types
-* HTTP status codes
-* MediatR
-* Serilog
-* database connection logic
-
-## Infrastructure conventions
-
-Infrastructure code lives in:
-
-```txt
-src/VsaTemplate.Infrastructure
-```
-
-Infrastructure contains:
-
-* `ApplicationDbContext`
-* EF Core configurations
-* migrations
-* external service implementations
-* database health check registration
-
-EF Core configurations go in:
-
-```txt
-src/VsaTemplate.Infrastructure/Persistence/Configurations
-```
-
-Migrations go in:
-
-```txt
-src/VsaTemplate.Infrastructure/Persistence/Migrations
-```
-
-## Testing instructions
-
-Run all tests before finishing code changes:
-
-```bash
-dotnet test src/VsaTemplate.slnx
-```
-
-Testing expectations:
-
-* Domain changes require unit tests.
-* Endpoint changes require integration tests.
-* Dependency/project-reference changes require architecture tests.
-* Template changes require generating and testing a sample project.
-
-Integration tests use Testcontainers and should not require manually running Docker Compose services, though Docker must be available.
-
-## Docker and configuration
-
-Local development:
-
-```bash
-docker compose up -d postgres seq
-dotnet run --project src/VsaTemplate.API/VsaTemplate.API.csproj
-```
-
-Full Docker:
-
-```bash
-docker compose up -d
-```
-
-Local app config uses:
-
-```txt
-Host=localhost
-```
-
-Docker app config uses:
-
-```txt
-Host=postgres
-```
-
-`.env.example` should be committed.
-
-`.env` should not be committed.
-
-## Security and secrets
-
-Do not commit real secrets.
-
-Safe for template defaults:
-
-```txt
-postgres
-admin123
-```
-
-Only as local development placeholders.
-
-Never add production credentials to:
-
-* `.env.example`
-* `appsettings.json`
-* docs
-* tests
-* CI logs
-
-## Documentation rules
-
-Keep README focused on quick start.
-
-Put study/explanation material in `docs/`.
-
-When adding a concept, update the relevant docs file instead of making README too long.
-
-Use `~~~` fences in Markdown docs when nesting code fences inside generated documentation blocks.
-
-## Pull request / commit checklist
-
-Before committing:
-
-```bash
-dotnet restore src/VsaTemplate.slnx
-dotnet build src/VsaTemplate.slnx
-dotnet test src/VsaTemplate.slnx
-```
-
-For template changes, also run:
-
-```bash
-dotnet new uninstall .
-dotnet new install .
-```
-
-Then generate and test:
-
-```bash
-mkdir -p ~/projects/template-test
-cd ~/projects/template-test
-rm -rf MyApp
-
-dotnet new vsa-api -n MyApp
-cd MyApp
-
-dotnet restore src/MyApp.slnx
-dotnet build src/MyApp.slnx
-dotnet test src/MyApp.slnx
-```
-
-If any command was not run, mention it clearly.

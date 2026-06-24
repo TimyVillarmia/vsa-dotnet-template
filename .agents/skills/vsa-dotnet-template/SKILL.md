@@ -1,7 +1,6 @@
 ---
-
 name: vsa-dotnet-template
-description: Work on this .NET 10 Minimal API VSA template. Use when adding features, fixing tests, updating template.json, editing endpoint registration, working with EF Core migrations, Docker Compose, Testcontainers, Scalar, Serilog, Seq, or explaining how this template works.
+description: Work on this .NET 10 Minimal API VSA template. Use when adding features, fixing tests, updating template.json, editing endpoint registration, working with EF Core migrations, Docker Compose, Testcontainers, Scalar, Serilog, Seq, architecture tests, or explaining how this template works.
 ---
 
 # VSA .NET Template Skill
@@ -26,6 +25,8 @@ This template is a .NET 10 Minimal API template using:
 * Testcontainers
 * Architecture tests
 * `dotnet new` template support
+
+Also read the repository-level `AGENTS.md` before making broad changes.
 
 ## Core architecture
 
@@ -71,6 +72,7 @@ Do not use a shell rename script. This repository should rely on `.template.conf
 * In `launchSettings.json`, `"commandName": "Project"` is correct. Do not replace it with the app name.
 * `sourceName` in `template.json` should be `VsaTemplate`.
 * Template parameters need `"replaces"` to actually replace tokens like `databaseName`, `seqPort`, and `localApiPort`.
+* Current template parameters are `databaseName`, `postgresUser`, `postgresPassword`, `postgresPort`, `seqPort`, `seqPassword`, `apiPort`, `localApiPort`, and `localHttpsPort`.
 * Integration tests must not use local Docker Compose ports like `5432` or `5433`. They must use the Testcontainers connection string.
 * In integration tests, override `ApplicationDbContext` registration with `_postgres.GetConnectionString()`.
 * Local app config can use `Host=localhost`.
@@ -152,6 +154,7 @@ dotnet new vsa-api -n MyApp \
   --postgresPassword postgres \
   --postgresPort 5433 \
   --seqPort 5342 \
+  --seqPassword admin123 \
   --apiPort 8081 \
   --localApiPort 5015 \
   --localHttpsPort 7049
@@ -240,9 +243,16 @@ Avoid:
 
 ```csharp
 app.MapTodoEndpoints();
-app.MapBudgetEndpoints();
-app.MapAuthEndpoints();
 ```
+
+Current sample routes:
+
+```txt
+POST /api/todos
+GET  /api/todos/{id:guid}
+```
+
+`UpdateTodoRequest.cs` exists as a request model, but no update route is currently mapped.
 
 ## Test strategy
 
