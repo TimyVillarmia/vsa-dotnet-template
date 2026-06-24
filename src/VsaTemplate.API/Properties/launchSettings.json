@@ -5,7 +5,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:localApiPort",
+      "applicationUrl": "http://localhost:__LOCAL_API_PORT__",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -14,7 +14,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "https://localhost:localHttpsPort;http://localhost:localApiPort",
+      "applicationUrl": "https://localhost:__LOCAL_HTTPS_PORT__;http://localhost:__LOCAL_API_PORT__",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

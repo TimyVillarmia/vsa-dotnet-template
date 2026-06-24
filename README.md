@@ -55,7 +55,7 @@ dotnet new vsa-api -n MyApp \
 
 ## Quick Start
 
-The commands below assume you are inside a project generated from the template. The template source repository intentionally contains placeholder tokens such as `databaseName`, `postgresPort`, and `localApiPort`.
+The commands below assume you are inside a project generated from the template.
 
 Copy environment file:
 
@@ -93,13 +93,13 @@ dotnet run --project src/VsaTemplate.API/VsaTemplate.API.csproj
 API URL:
 
 ```txt
-http://localhost:5014
+http://localhost:__LOCAL_API_PORT__
 ```
 
 Scalar docs:
 
 ```txt
-http://localhost:5014/scalar/v1
+http://localhost:__LOCAL_API_PORT__/scalar/v1
 ```
 
 Health checks:
