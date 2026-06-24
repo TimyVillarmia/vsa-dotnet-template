@@ -18,6 +18,17 @@ tests/
 └── VsaTemplate.ArchitectureTests
 ```
 
+Shared repository-level build files:
+
+```txt
+global.json
+Directory.Build.props
+Directory.Packages.props
+docker-compose.yml
+docker-compose.override.yml
+.template.config/template.json
+```
+
 ## Dependency Direction
 
 ```txt
@@ -103,3 +114,9 @@ API wires everything together:
 * endpoints
 * health checks
 * Scalar docs
+
+## Build Conventions
+
+Projects target `net10.0` with nullable reference types and implicit usings enabled.
+
+Package versions are centralized in `Directory.Packages.props`, so project files use package names without explicit versions.

@@ -10,6 +10,11 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - vsatemplate_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   seq:
     image: datalust/seq:latest
@@ -20,8 +25,8 @@ services:
     ports:
       - "${SEQ_PORT}:80"
     volumes:
-      - seq_data:/data
+      - vsatemplate_seq_data:/data
 
 volumes:
   vsatemplate_postgres_data:
-  seq_data:  
+  vsatemplate_seq_data:

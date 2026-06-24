@@ -19,6 +19,15 @@ VsaTemplate.API/
         └── UpdateTodoRequest.cs
 ```
 
+The current mapped Todo routes are:
+
+```txt
+POST /api/todos
+GET  /api/todos/{id:guid}
+```
+
+`UpdateTodoRequest.cs` exists as a request model, but no update route is currently mapped.
+
 ## Purpose of Endpoints
 
 Endpoints are responsible for:
@@ -54,8 +63,15 @@ public sealed class TodoEndpoints : IEndpoint
             .MapGroup("/api/todos")
             .WithTags("Todos");
 
-        group.MapPost("/", CreateTodo);
-        group.MapGet("/{id:guid}", GetTodoById);
+        group.MapPost("/", CreateTodo)
+            .WithName(nameof(CreateTodo))
+            .Produces<CreateTodoResponse>(StatusCodes.Status201Created)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
+
+        group.MapGet("/{id:guid}", GetTodoById)
+            .WithName(nameof(GetTodoById))
+            .Produces<GetTodoByIdResponse>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }
 ```

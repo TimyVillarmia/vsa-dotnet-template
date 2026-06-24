@@ -110,6 +110,16 @@ dotnet ef database update \
   --startup-project src/VsaTemplate.API/VsaTemplate.API.csproj
 ```
 
+## 10. Add Tests
+
+Add or update tests based on the behavior changed:
+
+```txt
+Domain behavior       -> unit tests
+HTTP behavior         -> integration tests
+Project dependencies  -> architecture tests
+```
+
 ## Feature Checklist
 
 For every new feature, ask:
@@ -126,4 +136,3 @@ Did I add an endpoint class?
 Did I add a migration?
 Did I add tests?
 ```
-

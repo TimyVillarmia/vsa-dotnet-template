@@ -16,7 +16,12 @@ It uses:
 - Serilog
 - Seq
 - Scalar
-- Tests
+- xUnit
+- Testcontainers
+- Architecture tests
+- `dotnet new` template support
+
+The SDK is pinned by `global.json` to .NET `10.0.100` with `latestFeature` roll-forward. Package versions are managed centrally in `Directory.Packages.props`.
 
 The goal is to stay simple while keeping good project boundaries.
 
@@ -65,3 +70,14 @@ HTTP Response
 The most important rule:
 
 > Organize by feature, but keep dependency direction clean.
+
+## Current Sample Feature
+
+The repository ships with a Todo feature that demonstrates the pattern:
+
+```txt
+POST /api/todos
+GET  /api/todos/{id}
+```
+
+The sample includes a Domain entity, Application commands/queries, EF Core configuration, Minimal API endpoints, unit tests, integration tests, and architecture tests.

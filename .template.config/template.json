@@ -18,6 +18,71 @@
     "language": "C#",
     "type": "project"
   },
+  "symbols": {
+    "databaseName": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "vsatemplate_db",
+      "replaces": "databaseName",
+      "description": "PostgreSQL database name."
+    },
+    "postgresUser": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "postgres",
+      "replaces": "postgresUser",
+      "description": "PostgreSQL username."
+    },
+    "postgresPassword": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "postgres",
+      "replaces": "postgresPassword",
+      "description": "PostgreSQL password for local development."
+    },
+    "postgresPort": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "5432",
+      "replaces": "postgresPort",
+      "description": "Host port for PostgreSQL."
+    },
+    "seqPort": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "5341",
+      "replaces": "seqPort",
+      "description": "Host port for Seq."
+    },
+    "seqPassword": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "admin123",
+      "replaces": "seqPassword",
+      "description": "Seq admin password for local development."
+    },
+    "apiPort": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "8080",
+      "replaces": "apiPort",
+      "description": "Host port for the API container."
+    },
+    "localApiPort": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "5014",
+      "replaces": "localApiPort",
+      "description": "Local dotnet run HTTP port."
+    },
+    "localHttpsPort": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "7048",
+      "replaces": "localHttpsPort",
+      "description": "Local dotnet run HTTPS port."
+    }
+  },
   "sources": [
     {
       "modifiers": [

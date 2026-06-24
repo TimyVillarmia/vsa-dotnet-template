@@ -20,20 +20,22 @@ It contains sample values.
 Example:
 
 ```env
-POSTGRES_DB=vsatemplate_db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_PORT=5432
+POSTGRES_DB=databaseName
+POSTGRES_USER=postgresUser
+POSTGRES_PASSWORD=postgresPassword
+POSTGRES_PORT=postgresPort
 
-SEQ_PORT=5341
-SEQ_PASSWORD=admin123
+SEQ_PORT=seqPort
+SEQ_PASSWORD=seqPassword
 
-API_PORT=8080
+API_PORT=apiPort
 ASPNETCORE_ENVIRONMENT=Development
 
-ConnectionStrings__Database=Host=postgres;Port=5432;Database=vsatemplate_db;Username=postgres;Password=postgres
+ConnectionStrings__Database=Host=postgres;Port=5432;Database=databaseName;Username=postgresUser;Password=postgresPassword
 Serilog__WriteTo__1__Args__serverUrl=http://seq:80
 ```
+
+Those placeholder values are replaced when the template is generated with `dotnet new vsa-api`.
 
 ## .env
 
@@ -51,15 +53,17 @@ cp .env.example .env
 
 This is app configuration.
 
-For local `dotnet run`, use:
+In the template source, local `dotnet run` configuration uses replaceable placeholders:
 
 ```json
 {
   "ConnectionStrings": {
-    "Database": "Host=localhost;Port=5432;Database=vsatemplate_db;Username=postgres;Password=postgres"
+    "Database": "Host=localhost;Port=postgresPort;Database=databaseName;Username=postgresUser;Password=postgresPassword"
   }
 }
 ```
+
+After `dotnet new vsa-api`, those placeholders are replaced with the selected template parameter values.
 
 ## Environment Variable Overrides
 
@@ -111,3 +115,25 @@ Host=postgres
 ```
 
 Because `postgres` is the Docker Compose service name.
+
+## Template Parameters
+
+`.template.config/template.json` defines these replaceable parameters:
+
+```txt
+databaseName
+postgresUser
+postgresPassword
+postgresPort
+seqPort
+seqPassword
+apiPort
+localApiPort
+localHttpsPort
+```
+
+Use them when creating a new project:
+
+```bash
+dotnet new vsa-api -n MyApp --databaseName myapp_db --apiPort 8081
+```

@@ -56,6 +56,16 @@ HTTP request
 → HTTP response
 ```
 
+`ApiFactory` starts a `postgres:18-alpine` container, switches the app to the `Testing` environment, overrides `ConnectionStrings:Database` with the Testcontainers connection string, replaces the production `ApplicationDbContext` registration, and runs EF Core migrations before tests execute.
+
+Current endpoint coverage:
+
+```txt
+POST /api/todos returns 201 for a valid request
+GET  /api/todos/{id} returns 200 when the Todo exists
+GET  /api/todos/{id} returns 404 when the Todo does not exist
+```
+
 ## Architecture Tests
 
 Architecture tests protect project boundaries.
@@ -86,3 +96,5 @@ inside Application should fail architecture tests.
 ```bash
 dotnet test src/VsaTemplate.slnx
 ```
+
+Integration tests require Docker because Testcontainers starts PostgreSQL automatically.

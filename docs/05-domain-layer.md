@@ -67,6 +67,12 @@ public sealed class Todo : Entity
         return new Todo(title);
     }
 
+    public void Update(string title, bool isCompleted)
+    {
+        Title = title;
+        IsCompleted = isCompleted;
+    }
+
     public void Complete()
     {
         IsCompleted = true;
@@ -123,4 +129,3 @@ Domain should not use:
 * API request models
 
 Domain should be pure.
-

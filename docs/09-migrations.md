@@ -8,6 +8,12 @@ VsaTemplate.Infrastructure/
     └── Migrations/
 ```
 
+The current repository includes an initial migration:
+
+```txt
+20260623075831_InitialCreate
+```
+
 ## Add Migration
 
 ```bash

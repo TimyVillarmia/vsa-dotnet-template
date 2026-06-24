@@ -2,6 +2,8 @@
 
 A simple .NET Minimal API template using Vertical Slice Architecture with lightweight Clean Architecture boundaries.
 
+It can be used directly as a starter repository or installed as a `dotnet new` template.
+
 ## Stack
 
 - .NET 10
@@ -20,7 +22,38 @@ A simple .NET Minimal API template using Vertical Slice Architecture with lightw
 - Testcontainers
 - Architecture tests
 
+## Template Usage
+
+Install the template from this repository:
+
+```bash
+dotnet new install .
+```
+
+Create a project:
+
+```bash
+dotnet new vsa-api -n MyApp
+```
+
+Optional parameters:
+
+```bash
+dotnet new vsa-api -n MyApp \
+  --databaseName myapp_db \
+  --postgresUser postgres \
+  --postgresPassword postgres \
+  --postgresPort 5433 \
+  --seqPort 5342 \
+  --seqPassword admin123 \
+  --apiPort 8081 \
+  --localApiPort 5015 \
+  --localHttpsPort 7049
+```
+
 ## Quick Start
+
+The commands below assume you are inside a project generated from the template. The template source repository intentionally contains placeholder tokens such as `databaseName`, `postgresPort`, and `localApiPort`.
 
 Copy environment file:
 
@@ -74,6 +107,13 @@ GET /health/live
 GET /health/ready
 ```
 
+Current Todo endpoints:
+
+```txt
+POST /api/todos
+GET  /api/todos/{id}
+```
+
 Run tests:
 
 ```bash
@@ -96,6 +136,3 @@ Read these in order:
 10. [Migrations](docs/09-migrations.md)
 11. [Testing](docs/10-testing.md)
 12. [Adding a Feature](docs/11-add-feature.md)
-
-```
-````

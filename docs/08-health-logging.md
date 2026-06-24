@@ -39,7 +39,26 @@ app.MapHealthChecks("/health/live", new HealthCheckOptions
 
 app.MapHealthChecks("/health/ready", new HealthCheckOptions
 {
-    Predicate = check => check.Tags.Contains("ready")
+    Predicate = check => check.Tags.Contains("ready"),
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+
+        var response = new
+        {
+            status = report.Status.ToString(),
+            checks = report.Entries.Select(entry => new
+            {
+                name = entry.Key,
+                status = entry.Value.Status.ToString(),
+                description = entry.Value.Description,
+                exception = entry.Value.Exception?.Message,
+                duration = entry.Value.Duration.ToString()
+            })
+        };
+
+        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+    }
 });
 ```
 
@@ -84,6 +103,16 @@ http://seq:80
 ## Scalar
 
 Scalar provides API documentation UI.
+
+Scalar and OpenAPI are mapped only in Development:
+
+```csharp
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+```
 
 Scalar URL:
 

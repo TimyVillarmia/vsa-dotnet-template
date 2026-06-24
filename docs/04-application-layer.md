@@ -50,16 +50,14 @@ Command means changing state.
 
 Query means reading state.
 
-Examples:
+Current Todo use cases:
 
 ```txt
 CreateTodoCommand
-UpdateTodoCommand
-DeleteTodoCommand
-
 GetTodoByIdQuery
-GetTodosQuery
 ```
+
+Future features can add more commands and queries beside these folders.
 
 ## Command Example
 
@@ -168,4 +166,3 @@ public interface IApplicationDbContext
 ```
 
 This allows handlers to use the database without depending directly on Infrastructure.
-
