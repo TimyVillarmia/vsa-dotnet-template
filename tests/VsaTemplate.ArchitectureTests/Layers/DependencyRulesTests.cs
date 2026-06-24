@@ -1,7 +1,7 @@
-using ApplicationDependencyInjection = VsaTemplate.Application.DependencyInjection;
-using InfrastructureDependencyInjection = VsaTemplate.Infrastructure.DependencyInjection;
 using NetArchTest.Rules;
 using VsaTemplate.Domain.Common;
+using ApplicationDependencyInjection = VsaTemplate.Application.DependencyInjection;
+using InfrastructureDependencyInjection = VsaTemplate.Infrastructure.DependencyInjection;
 
 namespace VsaTemplate.ArchitectureTests.Layers;
 

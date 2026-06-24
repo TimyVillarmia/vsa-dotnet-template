@@ -1,4 +1,4 @@
-﻿namespace VsaTemplate.ArchitectureTests;
+namespace VsaTemplate.ArchitectureTests;
 
 public class UnitTest1
 {

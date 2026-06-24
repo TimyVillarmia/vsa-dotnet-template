@@ -1,12 +1,12 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Scalar.AspNetCore;
+using Serilog;
 using VsaTemplate.API;
 using VsaTemplate.API.Endpoints;
 using VsaTemplate.API.Middleware;
 using VsaTemplate.Application;
 using VsaTemplate.Infrastructure;
-using Scalar.AspNetCore;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

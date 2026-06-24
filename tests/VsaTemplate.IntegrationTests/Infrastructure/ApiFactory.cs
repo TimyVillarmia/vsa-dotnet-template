@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Testcontainers.PostgreSql;
 using VsaTemplate.Application.Abstractions.Data;
 using VsaTemplate.Infrastructure.Persistence;
-using Testcontainers.PostgreSql;
 
 namespace VsaTemplate.IntegrationTests.Infrastructure;
 
