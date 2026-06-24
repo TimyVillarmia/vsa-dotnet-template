@@ -2,6 +2,8 @@
 
 A simple .NET Minimal API template using Vertical Slice Architecture with lightweight Clean Architecture boundaries.
 
+This started as my personal starter template for building .NET backend projects faster and more consistently. I use it to avoid repeating the same setup work across projects, but I am sharing it publicly in case it helps other developers who want a practical Minimal API + Vertical Slice Architecture starting point.
+
 It can be used directly as a starter repository or installed as a `dotnet new` template.
 
 ## Stack
